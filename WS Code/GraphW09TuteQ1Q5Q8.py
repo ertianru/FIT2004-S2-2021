@@ -46,11 +46,71 @@ class Graph:
             for edge in u.edges:
                 v = edge.v
                 v = self.vertices[v]
-                if v.discovered == False:
+                if v.visited == True:
+                    print("found cycle")
+                if v.discovered == False and v.visited == False:
                     discovered.append(v)
                     v.discovered = True  # means I have discovered v, adding it to queue
         return return_bfs
 
+    def bfs_colour(self, source):
+        """Function for BFS, starting from source
+        for tute problem 5
+        """
+        self.reset()
+        source = self.vertices[source]
+        source.color = "black"
+        return_bfs = []
+        discovered = []  # this is a queue
+        discovered.append(source)
+        while len(discovered) > 0:
+            # serve from queue
+            # u di scovered. serve()
+            u = discovered.pop(0)  # pop(0) same as serve
+            u.visited = True  # means I have visited u
+            return_bfs.append(u)
+            for edge in u.edges:
+                v = edge.v
+                v = self.vertices[v]
+                if v.discovered == False and v.visited == False:
+                    if u.color == "black":
+                        v.color = "blue"
+                    else:
+                        v.color = "black"
+                    discovered.append(v)
+                    v.discovered = True # means I have discovered v, adding it to queue
+        return return_bfs
+
+    def bfs_shortest_cycle(self, source):
+        """Function for BFS, starting from source
+        problem 8
+        """
+        self. reset()
+        source = self.vertices[source]
+        source.distance = 0
+        return_bfs = []
+        discovered = [] # this is a queue
+        discovered.append(source)
+        while len(discovered) > 0:
+            # serve from queue
+            # u discovered.serve()
+            u = discovered.pop(0) # pop(0) same as serve
+            u.visited = True # means I have visited u
+            return_bfs.append(u)
+            for edge in u.edges:
+                v = edge.v
+                if source == v:
+                    print("found cycle")
+                    # return length of cycle
+                    return v.distance
+                v = self.vertices[v]
+                if v.discovered == True:
+                    print( "found cycle")
+                if v.discovered == False and v.visited == False:
+                    discovered.append(v)
+                    v.distance = u.distance + 1
+                    v.discovered = True # means I have discovered v, adding it to queue
+        return return_bfs
 
 class Vertex:
     def __init__(self, id) -> None:
