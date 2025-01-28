@@ -1,12 +1,7 @@
-# %% Graph class (NOT COMPLETED)
+# %% Graph class
 # this is adjacency list
 class Graph:
     def __init__(self, argv_vertices_count) -> None:
-        # matrix
-        # self.matrix = [None] * argv_vertices_count
-        # for i in range(len(V)):
-        #     self.matrix[i] = [None] * len(V)
-
         # array
         self.vertices = [None] * argv_vertices_count
         for i in range(argv_vertices_count):
@@ -27,6 +22,11 @@ class Graph:
                 current_vertex = self.vertices[v]
                 current_vertex.add_edge(current_edge)
 
+    def __str__(self) -> str:
+        return_string = ""
+        for vertex in self.vertices:
+            return_string = return_string + "Vertex " + str(vertex) + "\n"
+        return return_string
 
     def bfs(self, source):
         """
@@ -50,55 +50,6 @@ class Graph:
                     discovered.append(v)
                     v.discovered = True  # means I have discovered v, adding it to queue
         return return_bfs
-
-    def bfs_distance(self, source):
-        """
-        Function for BFS, starting from source
-        INCOMPLETE -> UNRRUNABLE
-        """
-        discovered = []  # this is a queue
-        discovered.append(source)
-        while len(discovered) > 0:
-            # serve from queue
-            # u = discovered.serve()
-            u = discovered.pop(0)  # pop(0) same as serve
-            u.visited = True  # means I have visited u
-            for edge in u.edges:
-                v = edge.v
-                if v.discovered == False:
-                    discovered.append(v)
-                    v.discovered = True  # means I have discovered v, adding it to queue
-                    # backtracking -> INCOMPLETE
-                    v.distance = u.distance + 1
-                    v.previous = u
-
-    def dfs(self, source):
-        """
-        Function for DFS, starting from source
-        INCOMPLETE -> UNRRUNABLE
-        also possible with recursion (this inst recursion -> refer to slides)
-        """
-        return_dfs = []
-        discovered = []  # this is a stack (LNFO)
-        discovered.append(source)  # append = push
-        while len(discovered) > 0:
-            # serve from queue
-            # u = discovered.serve()
-            u = discovered.pop(0)  # pop(0) same as serve
-            u.visited = True  # means I have visited u
-            return_dfs.append(u)
-            for edge in u.edges:
-                v = edge.v
-                if v.discovered == False:
-                    discovered.append(v)
-                    v.discovered = True  # means I have discovered v, adding it to queue
-        return return_dfs
-
-    def __str__(self) -> str:
-        return_string = ""
-        for vertex in self.vertices:
-            return_string = return_string + "Vertex " + str(vertex) + "\n"
-        return return_string
 
 
 class Vertex:
@@ -143,28 +94,4 @@ class Edge:
 
 # %% create a graph w/ 5 edges
 if __name__ == "__main__":
-    # vertices
-    # vertex ID 0...9
-    total_vertices = 6
-    my_graph = Graph(total_vertices)
-    print(my_graph)
-
-    # edges
-    edges = []
-    edges.append((3, 1, 5))  # u=3, v=1, w=5
-    edges.append((1, 2, 1))
-    edges.append((2, 5, -888))
-    edges.append((3, 2, -5))
-    edges.append((3, 4, 322))
-
-    # what happens if i want an undirected graph
-    my_graph.add_edges(edges, True)
-    my_graph.add_edges(edges, False)
-    print(my_graph)
-
-    # run BFS
-    bla = my_graph.bfs(3)
-    for vertex in bla:
-        print(vertex)
-
-# %%
+    pass
